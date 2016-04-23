@@ -1,10 +1,20 @@
 # wallabag release creation
 
+## Usage
+
+```
+./releaser.sh master
+```
+
+Today, this script only creates package and upload it to our Framabag server.
+
+## Todo
+
 Here are (in french) the different steps when we release a new version. 
 
 The idea of this project: automate much steps as possible.
 
-## Steps (in french)
+### Steps (in french)
 
 * éditer le fichier app/config/config.yml pour changer la version 
 * éditer le README.md pour l'installation (numéro de version)
@@ -23,7 +33,7 @@ git push origin release-2.0.0
 ```
 
 * Mettre dans le titre de la PR : `DON'T MERGE`
-* Création du package : 
+* ~~Création du package~~ : 
 
 ```
 git clone git@github.com:wallabag/wallabag.git -b release-2.0.0 release-2.0.0
