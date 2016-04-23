@@ -6,20 +6,19 @@
 ./releaser.sh master
 ```
 
-Today, this script only creates package and upload it to our Framabag server.
+Today, this script only do the Package creation (see below) and upload it to our Framabag server.
 
 ## Todo
 
-Here are (in french) the different steps when we release a new version. 
+Here are the different steps when we release a new version. 
 
 The idea of this project: automate much steps as possible.
 
-### Steps (in french)
+### Steps
 
-* éditer le fichier app/config/config.yml pour changer la version 
-* éditer le README.md pour l'installation (numéro de version)
-* éditer la doc pour l'installation (numéro de version)
-* Commandes à jouer
+* Edit `app/config/config.yml`, `README.md` and documentation to change version
+* Push these changes via a new pull request
+* Create a new branch for the release (where we push `composer.lock`) :
 
 ```
 git checkout master
@@ -27,13 +26,14 @@ git pull origin master
 git checkout -b release-2.0.0
 SYMFONY_ENV=prod composer up --no-dev
 git add --force composer.lock
+# Edit .travis.yml to travis_wait composer install --no-interaction --no-progress --prefer-dist -o with travis_wait composer update --no-interaction --no-progress
 git add README.md
 git commit -m "Release wallabag 2.0.0"
 git push origin release-2.0.0
 ```
 
-* Mettre dans le titre de la PR : `DON'T MERGE`
-* ~~Création du package~~ : 
+* Create a new pull request and add in the title: `DON'T MERGE`. This pull request will never be merged. We only open it to launch our testsuite before releasing.
+* Package creation : 
 
 ```
 git clone git@github.com:wallabag/wallabag.git -b release-2.0.0 release-2.0.0
@@ -43,9 +43,10 @@ cd ..
 tar czf wallabag-release-2.0.0.tar.gz --exclude="var/cache/*" --exclude="var/logs/*" --exclude="var/sessions/*" --exclude=".git" release-2.0.0
 ```
 
-* Création de la release sur GitHub
-* Suppression de la branche créée
-* Fermeture de la milestone et ouverture de la suivante si nécessaire
-* Mise à jour de http://wllbg.org/admin/
-* Mise à jour de la page downloads du site 
-* Publication
+* Create a new release on GitHub
+* Delete `release-2.0.0` branch on GitHub
+* Close the current milestone and create a new one if necessary
+* Update links on http://wllbg.org/admin/ (YOURLS application)
+* Update wallabag.org website (downloads, releases and new blog post)
+* Share on social networks
+* Open and drink a fresh beer :beers:!
