@@ -17,6 +17,7 @@ The idea of this project: automate much steps as possible.
 ### Steps
 
 * Edit `app/config/config.yml`, `README.md` and documentation to change version
+* Update `CHANGELOG.md` 
 * Push these changes via a new pull request
 * Create a new branch for the release (where we push `composer.lock`) :
 
